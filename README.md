@@ -116,3 +116,40 @@ For a full example, see [LoginExample.java](src/main/java/com/salesforce/emp/con
 ## Documentation
 For more information about the components of the EMP Connector and a walkthrough, see the [Java Client Example](https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/code_sample_java_client_intro.htm)
  in the *Streaming API Developer Guide*.
+
+## TrailHead
+To get a local copy of the EMP-Connector GitHub repository:
+
+$ git clone  https://github.com/forcedotcom/EMP-Connector.git
+
+To build the EMP-Connector tool:
+
+$ cd EMP-Connector
+
+$ mvn clean package
+
+The mvn command generated JAR files in the target folder in the EMP-Connector project directory. The generated JAR file,  target/emp-connector-0.0.1-SNAPSHOT-phat.jar, includes the connector and the LoginExample functionality. The JAR contains all the dependencies for the connector, so you don’t have to download them separately.
+
+To run EMP Connector against your Developer Edition or Trailhead Playground org, type this command and supply your Trailhead Playground org or Salesforce org login credentials and the channel to subscribe to. In this example, the channel is /data/Employee__ChangeEvent.
+
+$ java -jar target/emp-connector-0.0.1-SNAPSHOT-phat.jar  username password /data/Employee__ChangeEvent
+
+Once you subscribe the EMP-Connector tool to the channel for Employee__c, any changes to Employee records or creation of new records generates notifications that the tool prints to the console.
+
+ ### Console Example
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Subscribed: Subscription [/data/Employee__ChangeEvent:-2]
+
+Received:
+{"schema":"-pszPCNGMHqUPU1ftkjxEA","payload":{"LastModifiedDate":"2020-08-06T06:22:19.000Z","OwnerId":"0057F000001eSTfQAM","CreatedById":"0057F000001eSTfQAM","ChangeEventHeader":{"commitNumber":10915705508285,"commitUser":"0057F000001eSTfQAM","sequenceNumber":1,"entityName":"Employee__c","changeType":"CREATE","changedFields":[],"changeOrigin":"com/salesforce/api/soap/49.0;client=SfdcInternalAPI/","transactionKey":"00039547-b906-1e54-d709-ebbf7a6f2777","commitTimestamp":1596694939000,"recordIds":["a097F00000XpKo9QAF"]},"CreatedDate":"2020-08-06T06:22:19.000Z","First_Name__c":"Patricia","LastModifiedById":"0057F000001eSTfQAM","Name":"e-100","Last_Name__c":"Smith"},"event":{"replayId":1480821}}
+
+Received:
+{"schema":"-pszPCNGMHqUPU1ftkjxEA","payload":{"LastModifiedDate":"2020-08-06T06:24:43.000Z","ChangeEventHeader":{"commitNumber":10915706370983,"commitUser":"0057F000001eSTfQAM","sequenceNumber":1,"entityName":"Employee__c","changeType":"UPDATE","changedFields":["LastModifiedDate","Tenure__c"],"changeOrigin":"com/salesforce/api/soap/49.0;client=SfdcInternalAPI/","transactionKey":"00039569-53f3-0a03-743e-46538797bf9f","commitTimestamp":1596695083000,"recordIds":["a097F00000XpKo9QAF"]},"Tenure__c":3.0},"event":{"replayId":1480822}}
+
+Received:
+{"schema":"-pszPCNGMHqUPU1ftkjxEA","payload":{"ChangeEventHeader":{"commitNumber":10915706812874,"commitUser":"0057F000001eSTfQAM","sequenceNumber":1,"entityName":"Employee__c","changeType":"DELETE","changedFields":[],"changeOrigin":"com/salesforce/api/soap/49.0;client=SfdcInternalAPI/","transactionKey":"0003957a-1856-5435-a67c-7f7290cd9e7c","commitTimestamp":1596695156000,"recordIds":["a097F00000XpKo9QAF"]}},"event":{"replayId":1480823}}
+
+Received:
+{"schema":"-pszPCNGMHqUPU1ftkjxEA","payload":{"LastModifiedDate":"2020-08-06T06:26:38.000Z","OwnerId":"0057F000001eSTfQAM","CreatedById":"0057F000001eSTfQAM","ChangeEventHeader":{"commitNumber":10915707071000,"commitUser":"0057F000001eSTfQAM","sequenceNumber":1,"entityName":"Employee__c","changeType":"UNDELETE","changedFields":[],"changeOrigin":"com/salesforce/api/soap/49.0;client=devconsole","transactionKey":"0003d0d0-0de6-ffd4-c2e9-d91720d8611a","commitTimestamp":1596695198000,"recordIds":["a097F00000XpKo9QAF"]},"CreatedDate":"2020-08-06T06:22:19.000Z","First_Name__c":"Patricia","LastModifiedById":"0057F000001eSTfQAM","Tenure__c":3.0,"Name":"e-100","Last_Name__c":"Smith"},"event":{"replayId":1480824}}
